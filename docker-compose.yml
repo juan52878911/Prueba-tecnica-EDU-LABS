@@ -1,0 +1,40 @@
+services:
+  # Servicio para la aplicación Laravel
+  laravel-app:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    volumes:
+      - ./backend:/var/www
+    ports:
+      - "8000:9000"
+    environment:
+      - DB_CONNECTION=pgsql
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_DATABASE=laravel
+      - DB_USERNAME=laravel_user
+      - DB_PASSWORD=laravel_password
+    networks:
+      - app-network
+
+  # Servicio para la base de datos PostgreSQL
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_DB: laravel
+      POSTGRES_USER: laravel_user
+      POSTGRES_PASSWORD: laravel_password
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
+
+volumes:
+  postgres-data:

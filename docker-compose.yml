@@ -14,7 +14,7 @@ services:
       - DB_PORT=5432
       - DB_DATABASE=laravel
       - DB_USERNAME=laravel_user
-      - DB_PASSWORD=laravel_password
+      - DB_PASSWORD=l4r4v3l_p4ssw0rd
     networks:
       - app-network
 
